@@ -4,7 +4,6 @@
   "description": "MVVM framework implemented by copying Vue source code",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "go": "webpack-dev-server --inline --progress --config build/webpack.conf.js"
   },
   "keywords": [
