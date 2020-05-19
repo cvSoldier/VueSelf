@@ -1,26 +1,30 @@
-import Dep from './dep';
-import { parsePath } from '../util/index'
+import { pushTarget, popTarget } from './dep';
 
-export class Watcher {
+export default class Watcher {
   cb
   vm
   exp
   value
   getter
 
-  constructor (vm, exp, cb) {
+  constructor (vm, exp, cb, options, isRenderWatcher) {
     this.cb = cb
     this.vm = vm
+    if (isRenderWatcher) {
+      vm._watcher = this
+    }
     this.exp = exp
-    this.getter = parsePath(exp)
+    if (typeof exp === 'function') {
+      this.getter = exp
+    }
     this.value = this.get()
   }
 
   get () {
-    Dep.target = this
+    pushTarget(this)
     const vm = this.vm
     var value = this.getter.call(vm, vm)
-    Dep.target = null
+    popTarget()
     return value
   }
 
