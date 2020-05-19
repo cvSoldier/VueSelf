@@ -3,7 +3,7 @@ import Watcher from '../observer/watcher'
 import { noop } from '../util/index'
 
 export function callHook (vm, hook) {
-  const handlers = vm[hook]
+  const handlers = vm.$options[hook]
   if(handlers) {
     handlers.apply(vm)
   }
@@ -28,23 +28,6 @@ export function mountComponent (vm, el, hydrating) {
   vm.$el = el
   if (!vm.$options.render) {
     vm.$options.render = createEmptyVNode
-    // if (process.env.NODE_ENV !== 'production') {
-    //   /* istanbul ignore if */
-    //   if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
-    //     vm.$options.el || el) {
-    //     warn(
-    //       'You are using the runtime-only build of Vue where the template ' +
-    //       'compiler is not available. Either pre-compile the templates into ' +
-    //       'render functions, or use the compiler-included build.',
-    //       vm
-    //     )
-    //   } else {
-    //     warn(
-    //       'Failed to mount component: template or render function not defined.',
-    //       vm
-    //     )
-    //   }
-    // }
   }
   callHook(vm, 'beforeMount')
 
@@ -67,6 +50,7 @@ export function mountComponent (vm, el, hydrating) {
   // manually mounted instance, call mounted on self
   // mounted is called for render-created child components in its inserted hook
   if (vm.$vnode == null) {
+    debugger
     vm._isMounted = true
     callHook(vm, 'mounted')
   }

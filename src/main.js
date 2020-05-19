@@ -1,14 +1,11 @@
 import VueSelf from './core/instance/index'
 
 new VueSelf({
-  el: '#app',
+  render(h) {
+    return h('h1', this.name)
+  },
   data: {
-    title: {
-      str: 'hello world'
-    },
-    name: {
-      str: 'Ox28fe88'
-    }
+    name: 'Ox28fe88'
   },
   methods: {
     clickMe () {
@@ -21,13 +18,13 @@ new VueSelf({
     console.log("%c%s", "color:red","data   : " + this.data)
     console.log("%c%s", "color:red","message: " + this.title)
   },
-  mounted: function () {
+  mounted () {
     window.setTimeout(() => {
-      this.title.str = '你好'
+      this.name = 'Ox28fe84'
     }, 1000)
     console.group('------mounted创建完毕状态------')
     console.log("%c%s", "color:red","el     : " + this.el)
     console.log("%c%s", "color:red","data   : " + this.data)
     console.log("%c%s", "color:red","message: " + this.title)
   }
-})
+}).$mount('#app')

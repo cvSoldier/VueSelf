@@ -2,7 +2,7 @@ import { initData } from './init'
 // import { Compile } from '../../compiler/index'
 import { patch } from '../vdom/patch'
 import { lifecycleMixin } from './lifecycle'
-import { renderMixin } from './render'
+import { initRender, renderMixin } from './render'
 import { callHook, mountComponent } from './lifecycle'
 
 function VueSelf (options) {
@@ -14,15 +14,16 @@ function VueSelf (options) {
   });
   this._init(options);
   this.methods = options.methods;
-  (this.created = options.created) && callHook(self, 'created')
+
+  callHook(self, 'created')
   if(options.el) {
     self.el = options.el
     self.$mount(this.el)
   }
-  // (this.mounted = options.mounted) && callHook(self, 'mounted')
 }
 
 VueSelf.prototype._init = function (options) {
+  initRender(this)
   initData(options.data)
 },
 VueSelf.prototype.proxyKeys = function (key) {
