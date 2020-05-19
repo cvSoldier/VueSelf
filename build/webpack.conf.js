@@ -15,6 +15,7 @@ const PORT = process.env.PORT && Number(process.env.PORT)
 
 const devWebpackConfig = {
   context: path.resolve(__dirname, '../'),
+  devtool: 'cheap-source-map',
   entry: {
     app: ['babel-polyfill', './src/main.js']
   },
@@ -24,6 +25,11 @@ const devWebpackConfig = {
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
+  },
+  resolve: {
+    alias: {
+      '@': resolve('src'),
+    }
   },
   module: {
     rules: [
