@@ -1,14 +1,9 @@
-import VNode, { createEmptyVNode } from '../vdom/vnode'
 import { createElement } from '../vdom/create-element'
 
 export function initRender (vm) {
   vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d, true)
 }
 export function renderMixin (Vue) {
-
-  Vue.prototype.$nextTick = function (fn) {
-    // return nextTick(fn, this)
-  }
 
   Vue.prototype._render = function () {
     const vm = this
